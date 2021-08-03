@@ -33,7 +33,6 @@ public class ValidationUserCommand implements Command {
         if (flag) {
             response.sendRedirect("Controller?command=GO_TO_MAIN");
         } else {
-
             HttpSession session = request.getSession(true);
             session.setAttribute("message", "User is incorrect");
             response.sendRedirect("Controller?command=GO_TO_AUTHORIZATION&message");

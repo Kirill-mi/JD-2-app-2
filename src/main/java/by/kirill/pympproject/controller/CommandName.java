@@ -7,5 +7,6 @@ public enum CommandName {
     LOCAL,
     REGISTRATION_NEW_USER,
     GO_TO_MAIN,
-    VALIDATION
+    VALIDATION,
+    FORGOT_PASSWORD
 }

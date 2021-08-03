@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         try {
             User userFromDAO = userDao.readUser(email);
             if (userFromDAO != null && userFromDAO.getPass().equals(pass)) {
-
+                userDao.deleteUser(email);
                 flag = true;
             }
         } catch (DAOException e) {
@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
         }
         return flag;
     }
-
 
     @Override
     public boolean validateUser(RegistrationInfo registrationInfo) throws ServiceException {
@@ -69,7 +68,6 @@ public class UserServiceImpl implements UserService {
         try {
             User userFromBase = userDao.readUser(email);
             if (userFromBase != null && userFromBase.getPass().equals(pass)) {
-                userDao.deleteUser(email);
                 flag = true;
             }
         } catch (DAOException e) {

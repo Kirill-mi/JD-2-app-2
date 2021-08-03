@@ -55,9 +55,9 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(1, email);
             try (ResultSet result = preparedStatement.executeQuery()) {
                 if (result.next()) {
-                    String name = result.getString(2);
-                    String password = result.getString(3);
-                    String emailFromBase = result.getString(5);
+                    String name = result.getString(1);
+                    String password = result.getString(2);
+                    String emailFromBase = result.getString(4);
                     return new User(name, password, emailFromBase);
                 }
             } catch (SQLException e1) {

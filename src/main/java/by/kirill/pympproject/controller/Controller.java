@@ -27,7 +27,6 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         String commandName = request.getParameter(COMMAND_REQUEST_PARAM);
         System.out.println(commandName);
-        System.out.println(request.getAttribute("location"));
         Command command = commandProvider.findCommand(commandName);
         command.execute(request, response);
     }

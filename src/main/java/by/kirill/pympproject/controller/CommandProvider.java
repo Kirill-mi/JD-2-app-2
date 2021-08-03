@@ -14,6 +14,7 @@ public class CommandProvider {
         commands.put(CommandName.REGISTRATION_NEW_USER, new RegistrationNewUserCommand());
         commands.put(CommandName.GO_TO_MAIN, new GoToMainPage());
         commands.put(CommandName.VALIDATION, new ValidationUserCommand());
+        commands.put(CommandName.FORGOT_PASSWORD, new ForgotPassword());
     }
 
     public Command findCommand(String name) {
