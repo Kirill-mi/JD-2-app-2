@@ -31,7 +31,7 @@ public class ValidationUserCommand implements Command {
             e.printStackTrace();
         }
         if (flag) {
-            response.sendRedirect("Controller?command=GO_TO_MAIN");
+            response.sendRedirect("Controller?command=go_to_news");
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("message", "User is incorrect");

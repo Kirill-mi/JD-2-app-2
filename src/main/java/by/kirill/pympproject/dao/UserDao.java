@@ -2,8 +2,6 @@ package by.kirill.pympproject.dao;
 
 import by.kirill.pympproject.bean.User;
 
-import java.util.Optional;
-
 public interface UserDao {
     boolean create(User user) throws DAOException;
 

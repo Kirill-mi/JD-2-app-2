@@ -8,5 +8,6 @@ public enum CommandName {
     REGISTRATION_NEW_USER,
     GO_TO_MAIN,
     VALIDATION,
-    FORGOT_PASSWORD
+    FORGOT_PASSWORD,
+    GO_TO_NEWS
 }
