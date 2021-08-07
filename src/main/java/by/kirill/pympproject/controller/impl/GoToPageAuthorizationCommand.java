@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class GoToPageAuthorizationCommand implements Command {
-    private final  String path = "/WEB-INF/jsp/validate.jsp";
+    private final static String PATH = "/WEB-INF/jsp/validate.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH);
         requestDispatcher.forward(request, response);
     }
 }

@@ -10,12 +10,12 @@ import java.io.IOException;
 
 
 public class Local implements Command {
-    private final static String path = "/WEB-INF/jsp/welcome.jsp";
+    private final static String PATH = "/WEB-INF/jsp/welcome.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession(true).setAttribute("local", request.getParameter("location"));
-        request.getRequestDispatcher(path).forward(request, response);
+        request.getRequestDispatcher(PATH).forward(request, response);
 
     }
 }

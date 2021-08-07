@@ -2,9 +2,9 @@ package by.kirill.pympproject.service;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
-import by.kirill.pympproject.dao.DAOException;
-import by.kirill.pympproject.dao.DaoProvider;
-import by.kirill.pympproject.dao.UserDao;
+import by.kirill.pympproject.DAO.DAOException;
+import by.kirill.pympproject.DAO.DaoProvider;
+import by.kirill.pympproject.DAO.UserDao;
 
 public class UserServiceImpl implements UserService {
     private final static DaoProvider daoProvider = DaoProvider.getInstance();

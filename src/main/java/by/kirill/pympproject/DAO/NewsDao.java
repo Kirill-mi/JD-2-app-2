@@ -1,4 +1,4 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.DAO;
 
 import by.kirill.pympproject.bean.News;
 import by.kirill.pympproject.bean.User;

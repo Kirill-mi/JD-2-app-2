@@ -1,4 +1,4 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.DAO;
 
 public final class DaoProvider {
     private final static DaoProvider instance = new DaoProvider();

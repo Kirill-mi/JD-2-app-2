@@ -18,6 +18,7 @@
     <fmt:message bundle="${loc}" key="local.text.correct_name" var="correct_name"/>
     <fmt:message bundle="${loc}" key="local.text.create_account" var="create_account"/>
     <fmt:message bundle="${loc}" key="local.text.create_account_text" var="create_account_text"/>
+    <fmt:message bundle="${loc}" key="local.text.enter_name" var="enter_name"/>
 
 </head>
 <body>
@@ -35,13 +36,13 @@
     <form action="Controller" method="post">
         <div class="section"><span>1</span>${name_email}</div>
         <div class="inner-wrap">
-            <label>${user_name}:<br/> <input type="text" name="name"> </label> <br/>
-            <label>${email}:<br/> <input type="text" placeholder="Enter your email" name="email"> </label> <br/>
+            <label>${user_name}:<br/> <input type="text" placeholder=${enter_name} name="name"> </label> <br/>
+            <label>${email}:<br/> <input type="email" placeholder="Enter your email" name="email"> </label> <br/>
         </div>
         <div class="section"><span>2</span> ${password}</div>
         <div class="inner-wrap">
-            <label>${password}:<br/> <input type="password" name="pass"> </label><br/>
-            <label>${password}:<br/> <input type="password" name="pass_new"> </label><br/>
+            <label>${password}:<br/> <input type="password" placeholder="Enter your password" name="pass"> </label><br/>
+            <label>${password}:<br/> <input type="password" placeholder="Confirm your password" name="pass_new"> </label><br/>
         </div>
         <input type="hidden" name="command" value="registration_new_user"><br/>
         <input type="submit" value=${submit}>

@@ -17,18 +17,17 @@ import java.util.List;
 public class GoToNews implements Command {
     private final static ServiceProvider provider = ServiceProvider.getInstance();
     private final NewsService newsService = provider.getNewsService();
-    private final String path = "/WEB-INF/jsp/news.jsp";
+    private final static String PATH = "/WEB-INF/jsp/news.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<News> news = null;
         try {
-            news = newsService.getLastNews();
+            List<News> news = newsService.getLastNews();
             request.setAttribute("newsArray", news);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH);
         requestDispatcher.forward(request, response);
     }
 }
