@@ -6,7 +6,6 @@ import by.kirill.pympproject.service.ServiceException;
 import by.kirill.pympproject.service.ServiceProvider;
 import by.kirill.pympproject.service.UserService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,9 +16,11 @@ public class RegistrationNewUserCommand implements Command {
 
     private final static ServiceProvider provider = ServiceProvider.getInstance();
     private final UserService userService = provider.getUserService();
+    private final static String GO_TO_AUTHORIZATION = "Controller?command=go_to_authorization";
+    private final static String GO_TO_REGISTRATION = "Controller?command=go_to_registration";
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         String pass = request.getParameter("pass");
         String controlPass = request.getParameter("pass_new");
@@ -31,14 +32,12 @@ public class RegistrationNewUserCommand implements Command {
             session.setAttribute("registration_status", registrationStatus);
             System.out.println(registrationStatus);
             if (registrationStatus.equals("User added")) {
-                response.sendRedirect("Controller?command=go_to_authorization");
+                response.sendRedirect(GO_TO_AUTHORIZATION);
             } else {
-                response.sendRedirect("Controller?command=go_to_registration");
+                response.sendRedirect(GO_TO_REGISTRATION);
             }
         } catch (ServiceException e) {
-            response.sendRedirect("Controller?command=REGISTRATION&message=Some problem");
+            response.sendRedirect(GO_TO_REGISTRATION);
         }
-
     }
-
 }

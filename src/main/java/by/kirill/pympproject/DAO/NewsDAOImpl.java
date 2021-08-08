@@ -1,4 +1,4 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.DAO;
 
 import by.kirill.pympproject.bean.News;
 import by.kirill.pympproject.bean.User;
@@ -7,7 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class NewsDaoImpl implements NewsDao {
+public class NewsDAOImpl implements NewsDAO {
     @Override
     public boolean create(User user) throws DAOException {
         return false;

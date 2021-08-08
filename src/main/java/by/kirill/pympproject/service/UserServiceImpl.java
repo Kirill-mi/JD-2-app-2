@@ -1,18 +1,22 @@
 package by.kirill.pympproject.service;
 
+
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
-import by.kirill.pympproject.dao.DAOException;
-import by.kirill.pympproject.dao.DaoProvider;
-import by.kirill.pympproject.dao.UserDao;
+import by.kirill.pympproject.DAO.DAOException;
+import by.kirill.pympproject.DAO.DaoProvider;
+import by.kirill.pympproject.DAO.UserDAO;
+import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
-    private final UserDao userDao = daoProvider.getUserDao();
-    private final String incorrectName = "Enter correct name";
-    private final String incorrectPass = "Enter correct password";
-    private final String incorrectEmail = "Enter correct email";
-    private final String userAdded = "User added";
+    private final UserDAO userDao = daoProvider.getUserDao();
+    private final static String INCORRECT_NAME = "Enter correct name";
+    private final static String INCORRECT_PASS = "Enter correct password";
+    private final static String INCORRECT_EMAIL = "Enter correct email";
+    private final static String USER_ADDED = "User added";
 
 
     @Override
@@ -23,24 +27,25 @@ public class UserServiceImpl implements UserService {
         String email = registrationInfo.getEmail();
 
         if (checkStringLine(name)) {
-            return incorrectName;
+            return INCORRECT_NAME;
         }
         if (checkEmail(email)) {
-            return incorrectEmail;
+            return INCORRECT_EMAIL;
         }
         if (checkStringLine(pass)) {
-            return incorrectPass;
+            return INCORRECT_PASS;
         }
         if (checkPassword(pass, controlPass)) {
-            return incorrectPass;
+            return INCORRECT_PASS;
         }
-        User user = new User(name, pass, email);
+        String hashedPass = BCrypt.hashpw(pass, BCrypt.gensalt());
+        User user = new User(name, hashedPass, email);
         try {
-            userDao.create(user);
+            userDao.add(user);
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-        return userAdded;
+        return USER_ADDED;
     }
 
     @Override
@@ -49,9 +54,9 @@ public class UserServiceImpl implements UserService {
         String email = registrationInfo.getEmail();
         boolean flag = false;
         try {
-            User userFromDAO = userDao.readUser(email);
-            if (userFromDAO != null && userFromDAO.getPass().equals(pass)) {
-                userDao.deleteUser(email);
+            Optional<User> userFromDAO = userDao.readUser(email);
+            if (userFromDAO.isPresent() && BCrypt.checkpw(pass, userFromDAO.get().getPass())) {
+                userDao.deleteUser(registrationInfo);
                 flag = true;
             }
         } catch (DAOException e) {
@@ -66,8 +71,8 @@ public class UserServiceImpl implements UserService {
         String email = registrationInfo.getEmail();
         boolean flag = false;
         try {
-            User userFromBase = userDao.readUser(email);
-            if (userFromBase != null && userFromBase.getPass().equals(pass)) {
+            Optional<User> userFromDAO = userDao.readUser(email);
+            if (userFromDAO.isPresent() && BCrypt.checkpw(pass, userFromDAO.get().getPass())) {
                 flag = true;
             }
         } catch (DAOException e) {
@@ -78,7 +83,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUser(RegistrationInfo registrationInfo) throws ServiceException {
-        return false;
+        String name = registrationInfo.getName();
+        String pass = registrationInfo.getPass();
+        String controlPass = registrationInfo.getControlPass();
+        String email = registrationInfo.getEmail();
+        if (checkStringLine(name)) {
+            return false;
+        }
+        if (checkEmail(email)) {
+            return false;
+        }
+        if (checkStringLine(pass)) {
+            return false;
+        }
+        String hashedPass = BCrypt.hashpw(controlPass, BCrypt.gensalt());
+        User user = new User(name, hashedPass, email);
+        try {
+            userDao.update(user);
+        } catch (DAOException e) {
+            throw new ServiceException(e);
+        }
+        return true;
     }
 
     private boolean checkStringLine(String name) {

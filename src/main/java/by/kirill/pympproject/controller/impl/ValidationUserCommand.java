@@ -22,13 +22,13 @@ public class ValidationUserCommand implements Command {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String pass = request.getParameter("pass");
-        RegistrationInfo registrationInfo = new RegistrationInfo(email,pass);
+        RegistrationInfo registrationInfo = new RegistrationInfo(email, pass);
 
         boolean flag = false;
         try {
             flag = userService.validateUser(registrationInfo);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            throw new ServletException(e);
         }
         if (flag) {
             response.sendRedirect("Controller?command=go_to_news");

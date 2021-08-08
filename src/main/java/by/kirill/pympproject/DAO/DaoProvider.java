@@ -1,9 +1,9 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.DAO;
 
 public final class DaoProvider {
     private final static DaoProvider instance = new DaoProvider();
-    private final UserDao userDao = new UserDaoImpl();
-    private final NewsDao newsDao = new NewsDaoImpl();
+    private final UserDAO userDao = new UserDAOImpl();
+    private final NewsDAO newsDao = new NewsDAOImpl();
 
     private DaoProvider() {
     }
@@ -12,11 +12,11 @@ public final class DaoProvider {
         return instance;
     }
 
-    public UserDao getUserDao() {
+    public UserDAO getUserDao() {
         return userDao;
     }
 
-    public NewsDao getNewsDao() {
+    public NewsDAO getNewsDao() {
         return newsDao;
     }
 }

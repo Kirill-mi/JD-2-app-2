@@ -1,4 +1,4 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.DAO;
 
 import java.io.FileInputStream;
 import java.io.IOException;

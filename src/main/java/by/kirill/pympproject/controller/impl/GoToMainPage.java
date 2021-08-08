@@ -10,11 +10,11 @@ import java.io.IOException;
 
 
 public class GoToMainPage implements Command {
-    private final  String path = "/WEB-INF/jsp/main.jsp";
+    private final static String PATH = "/WEB-INF/jsp/main.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH);
         requestDispatcher.forward(request, response);
     }
 }
