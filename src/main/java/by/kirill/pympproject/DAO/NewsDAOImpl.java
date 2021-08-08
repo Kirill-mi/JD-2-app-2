@@ -7,7 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class NewsDaoImpl implements NewsDao {
+public class NewsDAOImpl implements NewsDAO {
     @Override
     public boolean create(User user) throws DAOException {
         return false;

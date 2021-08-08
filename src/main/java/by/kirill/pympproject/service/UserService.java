@@ -1,8 +1,6 @@
 package by.kirill.pympproject.service;
 
-
 import by.kirill.pympproject.bean.RegistrationInfo;
-import by.kirill.pympproject.bean.User;
 
 public interface UserService {
     String createUser(RegistrationInfo registrationInfo) throws ServiceException;
@@ -12,5 +10,4 @@ public interface UserService {
     boolean validateUser(RegistrationInfo registrationInfo) throws ServiceException;
 
     boolean updateUser(RegistrationInfo registrationInfo) throws ServiceException;
-
 }

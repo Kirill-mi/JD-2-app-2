@@ -3,14 +3,14 @@ package by.kirill.pympproject.service;
 import by.kirill.pympproject.bean.News;
 import by.kirill.pympproject.DAO.DAOException;
 import by.kirill.pympproject.DAO.DaoProvider;
-import by.kirill.pympproject.DAO.NewsDao;
+import by.kirill.pympproject.DAO.NewsDAO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class NewsServiceImpl implements NewsService {
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
-    private final NewsDao newsDao = daoProvider.getNewsDao();
+    private final NewsDAO newsDao = daoProvider.getNewsDao();
 
     @Override
     public boolean create(News news) {

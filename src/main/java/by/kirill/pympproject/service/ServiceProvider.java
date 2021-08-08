@@ -6,7 +6,6 @@ public final class ServiceProvider {
     private final NewsService newsService = new NewsServiceImpl();
 
     private ServiceProvider() {
-
     }
 
     public static ServiceProvider getInstance() {
@@ -16,8 +15,8 @@ public final class ServiceProvider {
     public UserService getUserService() {
         return userService;
     }
+
     public NewsService getNewsService() {
         return newsService;
     }
-
 }
