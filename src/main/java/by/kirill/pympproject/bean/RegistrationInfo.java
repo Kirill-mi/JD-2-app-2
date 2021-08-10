@@ -75,4 +75,14 @@ public class RegistrationInfo implements Serializable {
     public int hashCode() {
         return Objects.hash(name, email, pass, controlPass);
     }
+
+    @Override
+    public String toString() {
+        return "RegistrationInfo{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", pass='" + pass + '\'' +
+                ", controlPass='" + controlPass + '\'' +
+                '}';
+    }
 }

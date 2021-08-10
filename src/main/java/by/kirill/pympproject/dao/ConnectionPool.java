@@ -1,4 +1,4 @@
-package by.kirill.pympproject.DAO;
+package by.kirill.pympproject.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,13 +11,13 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 public class ConnectionPool {
     private static ConnectionPool instance = null;
     private DataSource ds;
-    private String path = "C:\\Users\\Кирилл\\IdeaProjects\\pumpProject\\src\\main" +
+    private static final String PATH = "C:\\Users\\Кирилл\\IdeaProjects\\pumpProject\\src\\main" +
             "\\resources\\by\\kirill\\pumpproject\\dao\\db.properties";
 
     private ConnectionPool() {
         Properties properties = new Properties();
         try {
-            properties.load(new FileInputStream(path));
+            properties.load(new FileInputStream(PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }

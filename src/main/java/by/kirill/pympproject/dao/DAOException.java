@@ -1,4 +1,4 @@
-package by.kirill.pympproject.DAO;
+package by.kirill.pympproject.dao;
 
 public class DAOException extends Exception {
 

@@ -1,4 +1,4 @@
-package by.kirill.pympproject.DAO;
+package by.kirill.pympproject.dao;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
@@ -7,26 +7,27 @@ import java.sql.*;
 import java.util.Optional;
 
 public class UserDAOImpl implements UserDAO {
+    private final static String sqlAddUser = "INSERT INTO user ( name , pass,role,email,status) Values (?,?,?,?,?)";
+    private final static String sqlUpdateUser = "UPDATE * FROM user WHERE email=?";
+    private final static String sqlDeleteUser = "DELETE * FROM user WHERE email=?";
+    private final static String sqlReadUser = "SELECT * FROM user WHERE email=?";
 
     @Override
     public boolean add(User user) throws DAOException {
-        String sql = "INSERT INTO user ( name , pass,role,email,status) Values (?,?,?,?,?)";
-        return enterData(user, sql);
+        return enterData(user, sqlAddUser);
     }
 
     @Override
     public boolean update(User user) throws DAOException {
-        String sql = "UPDATE * FROM user WHERE email=?";
-        return enterData(user, sql);
+        return enterData(user, sqlUpdateUser);
     }
 
     @Override
     public boolean deleteUser(RegistrationInfo registrationInfo) throws DAOException {
         String email = registrationInfo.getEmail();
-        String sql = "DELETE * FROM user WHERE email=?";
         int rows;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteUser)) {
             preparedStatement.setString(1, email);
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e1) {
@@ -37,9 +38,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Optional<User> readUser(String email) throws DAOException {
-        String sql = "SELECT * FROM user WHERE email=?";
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sqlReadUser)) {
             preparedStatement.setString(1, email);
             try (ResultSet result = preparedStatement.executeQuery()) {
                 if (result.next()) {

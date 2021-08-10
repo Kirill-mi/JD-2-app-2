@@ -31,6 +31,9 @@
         <c:if test="${sessionScope.registration_status eq 'Enter correct password'}">
             <c:out value="${correct_password}"/>
         </c:if>
+        <c:if test="${sessionScope.registration_status eq 'User exists'}">
+            <c:out value="User exists"/>
+        </c:if>
         <c:remove var="registration_status" scope="session"/>
     </div>
     <form action="Controller" method="post">

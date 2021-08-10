@@ -1,14 +1,18 @@
 package by.kirill.pympproject.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class News {
+public class News implements Serializable {
     private String title;
     private String brief;
     private Date date;
 
-    public News(String title, String brief,Date date) {
+    public News() {
+    }
+
+    public News(String title, String brief, Date date) {
         this.title = title;
         this.brief = brief;
         this.date = date;
@@ -50,5 +54,14 @@ public class News {
     @Override
     public int hashCode() {
         return Objects.hash(title, brief);
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "title='" + title + '\'' +
+                ", brief='" + brief + '\'' +
+                ", date=" + date +
+                '}';
     }
 }
