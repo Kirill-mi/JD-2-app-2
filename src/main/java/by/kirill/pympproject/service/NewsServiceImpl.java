@@ -1,9 +1,9 @@
 package by.kirill.pympproject.service;
 
 import by.kirill.pympproject.bean.News;
-import by.kirill.pympproject.DAO.DAOException;
-import by.kirill.pympproject.DAO.DaoProvider;
-import by.kirill.pympproject.DAO.NewsDAO;
+import by.kirill.pympproject.dao.DAOException;
+import by.kirill.pympproject.dao.DaoProvider;
+import by.kirill.pympproject.dao.NewsDAO;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

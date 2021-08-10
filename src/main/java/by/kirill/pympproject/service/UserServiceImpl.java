@@ -3,12 +3,13 @@ package by.kirill.pympproject.service;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
-import by.kirill.pympproject.DAO.DAOException;
-import by.kirill.pympproject.DAO.DaoProvider;
-import by.kirill.pympproject.DAO.UserDAO;
+import by.kirill.pympproject.dao.DAOException;
+import by.kirill.pympproject.dao.DaoProvider;
+import by.kirill.pympproject.dao.UserDAO;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;
+
 
 public class UserServiceImpl implements UserService {
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
@@ -17,6 +18,7 @@ public class UserServiceImpl implements UserService {
     private final static String INCORRECT_PASS = "Enter correct password";
     private final static String INCORRECT_EMAIL = "Enter correct email";
     private final static String USER_ADDED = "User added";
+    private final static String USER_EXISTS = "User exists";
 
 
     @Override
@@ -38,10 +40,14 @@ public class UserServiceImpl implements UserService {
         if (checkPassword(pass, controlPass)) {
             return INCORRECT_PASS;
         }
-        String hashedPass = BCrypt.hashpw(pass, BCrypt.gensalt());
-        User user = new User(name, hashedPass, email);
         try {
-            userDao.add(user);
+            if (!userDao.readUser(email).isPresent()) {
+                String hashedPass = BCrypt.hashpw(pass, BCrypt.gensalt());
+                User user = new User(name, hashedPass, email);
+                userDao.add(user);
+            } else {
+                return USER_EXISTS;
+            }
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

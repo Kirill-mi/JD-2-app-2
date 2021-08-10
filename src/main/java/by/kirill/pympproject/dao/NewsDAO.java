@@ -1,10 +1,11 @@
-package by.kirill.pympproject.DAO;
+package by.kirill.pympproject.dao;
 
 import by.kirill.pympproject.bean.News;
 import by.kirill.pympproject.bean.User;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
+
 
 public interface NewsDAO {
     boolean create(User user) throws DAOException;
@@ -13,5 +14,5 @@ public interface NewsDAO {
 
     boolean update(News news) throws DAOException;
 
-    ArrayList<News> readNews(LocalDate date) throws DAOException;
+  List<News> readNews(LocalDate date) throws DAOException;
 }

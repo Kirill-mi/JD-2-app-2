@@ -16,6 +16,8 @@ import java.io.IOException;
 public class ValidationUserCommand implements Command {
     private final static ServiceProvider provider = ServiceProvider.getInstance();
     private final UserService userService = provider.getUserService();
+    private final static String GO_TO_AUTHORIZATION = "Controller?command=go_to_authorization";
+    private final static String GO_TO_NEWS = "Controller?command=go_to_news";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
@@ -24,19 +26,18 @@ public class ValidationUserCommand implements Command {
         String pass = request.getParameter("pass");
         RegistrationInfo registrationInfo = new RegistrationInfo(email, pass);
 
-        boolean flag = false;
+        boolean flag;
         try {
             flag = userService.validateUser(registrationInfo);
         } catch (ServiceException e) {
             throw new ServletException(e);
         }
         if (flag) {
-            response.sendRedirect("Controller?command=go_to_news");
+            response.sendRedirect(GO_TO_NEWS);
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("message", "User is incorrect");
-            response.sendRedirect("Controller?command=GO_TO_AUTHORIZATION&message");
+            response.sendRedirect(GO_TO_AUTHORIZATION);
         }
     }
-
 }

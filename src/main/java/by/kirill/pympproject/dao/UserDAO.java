@@ -1,4 +1,4 @@
-package by.kirill.pympproject.DAO;
+package by.kirill.pympproject.dao;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
