@@ -1,25 +1,25 @@
 package by.kirill.pympproject.service;
 
-
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
 import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.DaoProvider;
 import by.kirill.pympproject.dao.UserDAO;
+
+import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;
 
-
 public class UserServiceImpl implements UserService {
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
     private final UserDAO userDao = daoProvider.getUserDao();
+    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
     private final static String INCORRECT_NAME = "Enter correct name";
     private final static String INCORRECT_PASS = "Enter correct password";
     private final static String INCORRECT_EMAIL = "Enter correct email";
     private final static String USER_ADDED = "User added";
     private final static String USER_EXISTS = "User exists";
-
 
     @Override
     public String createUser(RegistrationInfo registrationInfo) throws ServiceException {
@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
                 return USER_EXISTS;
             }
         } catch (DAOException e) {
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return USER_ADDED;
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService {
                 flag = true;
             }
         } catch (DAOException e) {
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -82,6 +84,7 @@ public class UserServiceImpl implements UserService {
                 flag = true;
             }
         } catch (DAOException e) {
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -107,6 +110,7 @@ public class UserServiceImpl implements UserService {
         try {
             userDao.update(user);
         } catch (DAOException e) {
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return true;

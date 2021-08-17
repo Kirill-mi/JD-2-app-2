@@ -5,11 +5,11 @@ import by.kirill.pympproject.bean.News;
 import java.util.ArrayList;
 
 public interface NewsService {
-    boolean create(News news);
+    boolean create(String title,String text);
 
     boolean delete(String title);
 
-    void update(News news);
+    void update(String title);
 
     News read(String title);
 

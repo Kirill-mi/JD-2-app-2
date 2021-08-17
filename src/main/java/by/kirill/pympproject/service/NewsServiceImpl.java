@@ -5,6 +5,7 @@ import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.DaoProvider;
 import by.kirill.pympproject.dao.NewsDAO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -13,7 +14,18 @@ public class NewsServiceImpl implements NewsService {
     private final NewsDAO newsDao = daoProvider.getNewsDao();
 
     @Override
-    public boolean create(News news) {
+    public boolean create(String title, String text) {
+        News news = new News.Builder()
+                .setTitle(title)
+                .setBrief(text.substring(0, 200))
+                .setDate(LocalDate.now())
+                .setText(text)
+                .build();
+        try {
+            newsDao.create(news);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -23,7 +35,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void update(News news) {
+    public void update(String title) {
 
     }
 
@@ -35,9 +47,9 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public ArrayList<News> getLastNews() throws ServiceException {
         ArrayList<News> newsArrayList;
-        LocalDate date= LocalDate.now();
+        LocalDate date = LocalDate.now();
         try {
-                newsArrayList = new ArrayList<>(newsDao.readNews(date.minusDays(1)));
+            newsArrayList = new ArrayList<>(newsDao.readNews(date.minusDays(1)));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }

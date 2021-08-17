@@ -1,20 +1,24 @@
 package by.kirill.pympproject.bean;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
 public class News implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String title;
     private String brief;
-    private Date date;
+    private String text;
+    private LocalDate date;
 
     public News() {
     }
 
-    public News(String title, String brief, Date date) {
+    public News(String title, String brief, String text, LocalDate date) {
         this.title = title;
         this.brief = brief;
+        this.text = text;
         this.date = date;
     }
 
@@ -34,12 +38,20 @@ public class News implements Serializable {
         this.brief = brief;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
@@ -63,5 +75,40 @@ public class News implements Serializable {
                 ", brief='" + brief + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+
+    public static class Builder {
+        public Builder() {
+        }
+
+        private String title;
+        private String brief;
+        private String text;
+        private LocalDate date;
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setBrief(String brief) {
+            this.brief = brief;
+            return this;
+        }
+
+        public Builder setText(String text) {
+            this.text = text;
+            return this;
+        }
+
+        public Builder setDate(LocalDate date) {
+            this.date = date;
+            return this;
+        }
+
+        public News build() {
+            return new News(title, brief, text, date);
+        }
     }
 }
