@@ -7,19 +7,20 @@ import java.sql.*;
 import java.util.Optional;
 
 public class UserDAOImpl implements UserDAO {
-    private final static String sqlAddUser = "INSERT INTO user ( name , pass,role,email,status) Values (?,?,?,?,?)";
-    private final static String sqlUpdateUser = "UPDATE * FROM user WHERE email=?";
-    private final static String sqlDeleteUser = "DELETE * FROM user WHERE email=?";
-    private final static String sqlReadUser = "SELECT * FROM user WHERE email=?";
+    private final static String SQL_ADD_USER = "INSERT INTO user ( name , pass,role,email,status) Values (?,?,?,?,?)";
+    private final static String SQL_UPDATE_USER = "UPDATE * FROM user WHERE email=?";
+    private final static String SQL_DELETE_USER = "DELETE * FROM user WHERE email=?";
+    private final static String SQL_READ_USER = "SELECT * FROM user WHERE email=?";
 
     @Override
     public boolean add(User user) throws DAOException {
-        return enterData(user, sqlAddUser);
+
+        return enterData(user, SQL_ADD_USER);
     }
 
     @Override
     public boolean update(User user) throws DAOException {
-        return enterData(user, sqlUpdateUser);
+        return enterData(user, SQL_UPDATE_USER);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
         String email = registrationInfo.getEmail();
         int rows;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteUser)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER)) {
             preparedStatement.setString(1, email);
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e1) {
@@ -39,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Optional<User> readUser(String email) throws DAOException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sqlReadUser)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_USER)) {
             preparedStatement.setString(1, email);
             try (ResultSet result = preparedStatement.executeQuery()) {
                 if (result.next()) {
