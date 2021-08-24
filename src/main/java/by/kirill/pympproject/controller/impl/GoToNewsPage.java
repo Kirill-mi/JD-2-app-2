@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class GoToNews implements Command {
+public class GoToNewsPage implements Command {
     private final static ServiceProvider provider = ServiceProvider.getInstance();
     private final NewsService newsService = provider.getNewsService();
     private final static String PATH = "/WEB-INF/jsp/news.jsp";

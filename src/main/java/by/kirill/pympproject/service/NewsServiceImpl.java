@@ -5,7 +5,6 @@ import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.DaoProvider;
 import by.kirill.pympproject.dao.NewsDAO;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

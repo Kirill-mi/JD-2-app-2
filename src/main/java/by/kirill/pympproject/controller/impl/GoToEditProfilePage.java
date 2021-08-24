@@ -8,9 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
-public class GoToMainPage implements Command {
-    private final static String PATH = "/WEB-INF/jsp/main.jsp";
+public class GoToEditProfilePage implements Command {
+    private final static String PATH = "/WEB-INF/jsp/edit_profile.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
