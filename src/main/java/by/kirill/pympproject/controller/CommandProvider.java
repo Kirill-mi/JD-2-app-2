@@ -13,10 +13,12 @@ public class CommandProvider {
         commands.put(CommandName.GO_TO_REGISTRATION, new GoToPageRegistrationCommand());
         commands.put(CommandName.LOCAL, new Local());
         commands.put(CommandName.REGISTRATION_NEW_USER, new RegistrationNewUserCommand());
-        commands.put(CommandName.GO_TO_MAIN, new GoToMainPage());
         commands.put(CommandName.VALIDATION, new ValidationUserCommand());
         commands.put(CommandName.FORGOT_PASSWORD, new ForgotPassword());
-        commands.put(CommandName.GO_TO_NEWS, new GoToNews());
+        commands.put(CommandName.GO_TO_NEWS, new GoToNewsPage());
+        commands.put(CommandName.USER_S_ACCOUNT, new GoToAccountPage());
+        commands.put(CommandName.PROFILE_EDIT, new UpdateUserCommand());
+        commands.put(CommandName.GO_TO_EDIT_PROFILE, new GoToEditProfilePage());
     }
 
     public Command findCommand(String name) {

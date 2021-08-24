@@ -11,10 +11,17 @@
     <fmt:setBundle basename="by.kirill.pumpproject.controller.local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.news" var="news"/>
     <fmt:message bundle="${loc}" key="local.text.news" var="news_text"/>
+    <fmt:message bundle="${loc}" key="local.button.account" var="account_button"/>
 </head>
 <body>
 <div class="form-style-10">
     <h1>${news}<span>${news_text}</span></h1>
+    <div class="button-section">
+        <form action="Controller" method="post">
+            <input type="hidden" name="command" value="user_s_account"><br/>
+            <input type="submit" value=${account_button}>
+        </form>
+    </div>
     <table>
         <tr>
             <th>News title</th>

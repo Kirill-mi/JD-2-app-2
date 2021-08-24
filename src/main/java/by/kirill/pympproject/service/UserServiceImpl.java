@@ -116,6 +116,16 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public Optional<User> readUser(String email) throws ServiceException {
+        try {
+            return userDao.readUser(email);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
     private boolean checkStringLine(String name) {
         return name == null || name.isEmpty() || name.length() > 50;
     }
