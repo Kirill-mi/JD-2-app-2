@@ -6,6 +6,7 @@ import by.kirill.pympproject.service.ServiceException;
 import by.kirill.pympproject.service.ServiceProvider;
 import by.kirill.pympproject.service.UserService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,7 +21,7 @@ public class RegistrationNewUserCommand implements Command {
     private final static String GO_TO_REGISTRATION = "Controller?command=go_to_registration";
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String name = request.getParameter("name");
         String pass = request.getParameter("pass");
         String controlPass = request.getParameter("pass_new");

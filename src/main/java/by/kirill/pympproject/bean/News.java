@@ -2,7 +2,6 @@ package by.kirill.pympproject.bean;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class News implements Serializable {
@@ -11,15 +10,17 @@ public class News implements Serializable {
     private String brief;
     private String text;
     private LocalDate date;
+    private String author;
 
     public News() {
     }
 
-    public News(String title, String brief, String text, LocalDate date) {
+    public News(String title, String brief, String text, LocalDate date,String author) {
         this.title = title;
         this.brief = brief;
         this.text = text;
         this.date = date;
+        this.author=author;
     }
 
     public String getTitle() {
@@ -54,18 +55,29 @@ public class News implements Serializable {
         this.text = text;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof News)) return false;
         News news = (News) o;
-        return Objects.equals(title, news.title) &&
-                Objects.equals(brief, news.brief);
+        return title.equals(news.title) &&
+                brief.equals(news.brief) &&
+                text.equals(news.text) &&
+                date.equals(news.date) &&
+                author.equals(news.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, brief);
+        return Objects.hash(title, brief, text, date, author);
     }
 
     @Override
@@ -86,6 +98,7 @@ public class News implements Serializable {
         private String brief;
         private String text;
         private LocalDate date;
+        private String author;
 
         public Builder setTitle(String title) {
             this.title = title;
@@ -106,9 +119,12 @@ public class News implements Serializable {
             this.date = date;
             return this;
         }
-
+        public Builder setAuthor(String author) {
+            this.author = author;
+            return this;
+        }
         public News build() {
-            return new News(title, brief, text, date);
+            return new News(title, brief, text, date,author);
         }
     }
 }

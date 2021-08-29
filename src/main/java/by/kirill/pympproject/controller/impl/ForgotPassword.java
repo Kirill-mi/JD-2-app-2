@@ -1,15 +1,11 @@
 package by.kirill.pympproject.controller.impl;
 
-import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.controller.Command;
-import by.kirill.pympproject.service.ServiceException;
 import by.kirill.pympproject.service.ServiceProvider;
 import by.kirill.pympproject.service.UserService;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Properties;
 import javax.mail.Message;

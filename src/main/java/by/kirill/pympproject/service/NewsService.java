@@ -5,13 +5,13 @@ import by.kirill.pympproject.bean.News;
 import java.util.ArrayList;
 
 public interface NewsService {
-    boolean create(String title,String text);
+    boolean createNews(String title, String text, String author) throws ServiceException;
 
-    boolean delete(String title);
+    boolean deleteNews(String title) throws ServiceException;
 
-    void update(String title);
+    boolean updateNews(News news) throws ServiceException;
 
-    News read(String title);
+    News read(String title) throws ServiceException;
 
     ArrayList<News> getLastNews() throws ServiceException;
 }

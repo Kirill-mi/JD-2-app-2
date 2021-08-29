@@ -37,7 +37,7 @@
         </form>
         <c:if test="${userd.role eq 'user'}">
             <form action="Controller" method="post">
-                <input type="hidden" name="command" value="news_edit"><br/>
+                <input type="hidden" name="command" value="go_to_edit_news"><br/>
                 <input type="submit" value=${news_edit_button}>
             </form>
         </c:if>
