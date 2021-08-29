@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class UserServiceImpl implements UserService {
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
     private final UserDAO userDao = daoProvider.getUserDao();
-    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
     private final static String INCORRECT_NAME = "Enter correct name";
     private final static String INCORRECT_PASS = "Enter correct password";
     private final static String INCORRECT_EMAIL = "Enter correct email";
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (DAOException e) {
             e.printStackTrace();
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return USER_ADDED;
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (DAOException e) {
             e.printStackTrace();
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (DAOException e) {
             e.printStackTrace();
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
             userDao.update(user);
         } catch (DAOException e) {
             e.printStackTrace();
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return true;
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.readUser(email);
         } catch (DAOException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new ServiceException(e);
         }

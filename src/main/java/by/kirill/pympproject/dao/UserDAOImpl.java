@@ -2,7 +2,6 @@ package by.kirill.pympproject.dao;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
-import by.kirill.pympproject.service.UserServiceImpl;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -13,7 +12,7 @@ public class UserDAOImpl implements UserDAO {
     private final static String SQL_UPDATE_USER = "UPDATE  user set name=?,pass=? WHERE email=?";
     private final static String SQL_DELETE_USER = "DELETE * FROM user WHERE email=?";
     private final static String SQL_READ_USER = "SELECT * FROM user WHERE email=?";
-    private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
     @Override
     public boolean add(User user) throws DAOException {
         int rows;
@@ -31,7 +30,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(5, status);
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }
@@ -52,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(3, email);
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }
@@ -68,7 +67,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(1, email);
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }
@@ -88,12 +87,12 @@ public class UserDAOImpl implements UserDAO {
                     return Optional.of(new User(name, password, emailFromBase));
                 }
             } catch (SQLException e) {
-                logger.warn(e.getMessage());
+                LOGGER.warn(e.getMessage());
                 e.printStackTrace();
                 throw new DAOException(e);
             }
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }
