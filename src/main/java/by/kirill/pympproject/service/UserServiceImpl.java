@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
@@ -49,6 +51,7 @@ public class UserServiceImpl implements UserService {
                 return USER_EXISTS;
             }
         } catch (DAOException e) {
+            e.printStackTrace();
             logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
@@ -67,6 +70,7 @@ public class UserServiceImpl implements UserService {
                 flag = true;
             }
         } catch (DAOException e) {
+            e.printStackTrace();
             logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
@@ -84,6 +88,7 @@ public class UserServiceImpl implements UserService {
                 flag = true;
             }
         } catch (DAOException e) {
+            e.printStackTrace();
             logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
@@ -110,6 +115,7 @@ public class UserServiceImpl implements UserService {
         try {
             userDao.update(user);
         } catch (DAOException e) {
+            e.printStackTrace();
             logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
@@ -121,9 +127,10 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.readUser(email);
         } catch (DAOException e) {
+            logger.warn(e.getMessage());
             e.printStackTrace();
+            throw new ServiceException(e);
         }
-        return Optional.empty();
     }
 
     private boolean checkStringLine(String name) {
@@ -135,6 +142,9 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean checkEmail(String email) {
-        return email == null || email.isEmpty() || email.length() > 100;
+        Pattern pattern = Pattern.compile("\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*\\.\\w{2,4}");
+        Matcher matcher = pattern.matcher(email);
+        boolean matches = matcher.matches();
+        return matches || email.length() > 100;
     }
 }

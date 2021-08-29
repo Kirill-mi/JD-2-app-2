@@ -13,5 +13,7 @@ public interface NewsDAO {
 
     boolean update(News news) throws DAOException;
 
-    List<News> readNews(LocalDate date) throws DAOException;
+    News read(String title) throws DAOException;
+
+    List<News> readLastNews(LocalDate date) throws DAOException;
 }

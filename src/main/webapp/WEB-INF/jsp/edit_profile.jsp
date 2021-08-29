@@ -18,21 +18,24 @@
     <fmt:message bundle="${loc}" key="local.text.correct_name" var="correct_name"/>
     <fmt:message bundle="${loc}" key="local.button.edit.profile" var="edit_profile"/>
     <fmt:message bundle="${loc}" key="local.text.enter_name" var="enter_name"/>
-
+    <c:set var="userd" value="${sessionScope.user}"/>
 </head>
 <body>
 <div class="form-style-10">
     <h1>${edit_profile}<span>${edit_profile}</span></h1>
     <form action="Controller" method="post">
         <div class="section"><span>1</span>${name_email}</div>
+
         <div class="inner-wrap">
             <label>${user_name}:<br/> <input type="text" placeholder="Enter your name" name="name"> </label> <br/>
-            <label>${email}:<br/> <input type="email" placeholder="Enter your email" name="email"> </label> <br/>
+            <label>${email}:<br/> <input type="email" placeholder="Enter your email" name="email"
+                                         value="${userd.email}" disabled="disabled"> </label> <br/>
         </div>
         <div class="section"><span>2</span> ${password}</div>
         <div class="inner-wrap">
             <label>${password}:<br/> <input type="password" placeholder="Enter your password" name="pass"> </label><br/>
-            <label>${password}:<br/> <input type="password" placeholder="Confirm your password" name="pass_new"> </label><br/>
+            <label>${password}:<br/> <input type="password" placeholder="Confirm your password" name="pass_new">
+            </label><br/>
         </div>
         <input type="hidden" name="command" value="profile_edit"><br/>
         <input type="submit" value=${submit}>
