@@ -31,6 +31,5 @@ public class CreateNewsCommand implements Command {
             e.printStackTrace();
             throw new ServletException(e);
         }
-
     }
 }

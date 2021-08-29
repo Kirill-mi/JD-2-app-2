@@ -14,7 +14,7 @@ public class NewsDAOImpl implements NewsDAO {
     private final static String SQL_ADD_NEWS = "INSERT INTO news ( title ,brief,date,text,author) Values (?,?,?,?,?)";
     private final static String SQL_UPDATE_NEWS = "UPDATE  news set text=?,brief=?,date=? WHERE title=?";
     private final static String SQL_DELETE_NEWS = "DELETE * FROM news WHERE title=?";
-    private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
 
     @Override
     public boolean create(News news) throws DAOException {
@@ -33,7 +33,7 @@ public class NewsDAOImpl implements NewsDAO {
             preparedStatement.setString(5, author);
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }
@@ -48,7 +48,7 @@ public class NewsDAOImpl implements NewsDAO {
             preparedStatement.setString(1, title);
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }
@@ -70,7 +70,7 @@ public class NewsDAOImpl implements NewsDAO {
             preparedStatement.setString(3, title);
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }
@@ -97,12 +97,12 @@ public class NewsDAOImpl implements NewsDAO {
                         .setAuthor(author)
                         .build();
             } catch (SQLException e) {
-                logger.warn(e.getMessage());
+                LOGGER.warn(e.getMessage());
                 e.printStackTrace();
                 throw new DAOException(e);
             }
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }
@@ -131,12 +131,12 @@ public class NewsDAOImpl implements NewsDAO {
                             .build());
                 }
             } catch (SQLException e) {
-                logger.warn(e.getMessage());
+                LOGGER.warn(e.getMessage());
                 e.printStackTrace();
                 throw new DAOException(e);
             }
         } catch (SQLException e) {
-            logger.warn(e.getMessage());
+            LOGGER.warn(e.getMessage());
             e.printStackTrace();
             throw new DAOException(e);
         }

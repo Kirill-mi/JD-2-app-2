@@ -27,12 +27,14 @@
             <th>News title</th>
             <th>News brief</th>
             <th>News date</th>
+            <th>News author</th>
         </tr>
         <c:forEach var="news" items="${requestScope.newsArray}">
             <tr>
-                <td>${news.title}</td>
+                <td><a href="validate.jsp" v> ${news.title}</a></td>
                 <td>${news.brief}</td>
                 <td>${news.date}</td>
+                <td>${news.author}</td>
             </tr>
         </c:forEach>
     </table>
