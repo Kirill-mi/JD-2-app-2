@@ -14,7 +14,6 @@
     <fmt:setBundle basename="by.kirill.pumpproject.controller.local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.button.name.ru" var="ru_button"/>
     <fmt:message bundle="${loc}" key="local.button.name.en" var="en_button"/>
-    <fmt:message bundle="${loc}" key="local.button.name.en" var="en_button"/>
     <fmt:message bundle="${loc}" key="local.text.welcome" var="text_welcome"/>
     <fmt:message bundle="${loc}" key="local.welcome" var="welcome"/>
     <fmt:message bundle="${loc}" key="local.button.registration" var="registration"/>

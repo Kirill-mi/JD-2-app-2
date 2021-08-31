@@ -9,6 +9,8 @@
     <title>Pump Project</title>
     <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="by.kirill.pumpproject.controller.local" var="loc"/>
+    <fmt:message bundle="${loc}" key="local.button.name.ru" var="ru_button"/>
+    <fmt:message bundle="${loc}" key="local.button.name.en" var="en_button"/>
     <fmt:message bundle="${loc}" key="local.password" var="password"/>
     <fmt:message bundle="${loc}" key="local.username" var="user_name"/>
     <fmt:message bundle="${loc}" key="local.name_email" var="name_email"/>
@@ -38,6 +40,20 @@
             <input type="hidden" name="command" value="validation"><br/>
             <input type="submit" value=${submit}>
         </form>
+        <br/> <br/> <br/> <br/>
+        <div class="">
+            <form action="Controller" method="post">
+                <input type="hidden" name="command" value="local"/>
+                <input type="hidden" name="location" value="ru"/>
+                <input type="submit" value="${ru_button}"/><br/>
+            </form>
+            <br/>
+            <form action="Controller" method="post">
+                <input type="hidden" name="command" value="local"/>
+                <input type="hidden" name="location" value="en"/>
+                <input type="submit" value="${en_button}"/><br/>
+            </form>
+        </div>
     </div>
 </div>
 </body>
