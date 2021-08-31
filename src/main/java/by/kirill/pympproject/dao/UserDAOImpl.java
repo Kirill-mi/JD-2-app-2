@@ -2,7 +2,9 @@ package by.kirill.pympproject.dao;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 
 import java.sql.*;
 import java.util.Optional;
@@ -12,7 +14,7 @@ public class UserDAOImpl implements UserDAO {
     private final static String SQL_UPDATE_USER = "UPDATE  user set name=?,pass=? WHERE email=?";
     private final static String SQL_DELETE_USER = "DELETE * FROM user WHERE email=?";
     private final static String SQL_READ_USER = "SELECT * FROM user WHERE email=?";
-    private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserDAOImpl.class);
     @Override
     public boolean add(User user) throws DAOException {
         int rows;

@@ -6,6 +6,8 @@ import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.DaoProvider;
 import by.kirill.pympproject.dao.UserDAO;
 
+
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -16,7 +18,7 @@ import java.util.regex.Pattern;
 public class UserServiceImpl implements UserService {
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
     private final UserDAO userDao = daoProvider.getUserDao();
-    private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
     private final static String INCORRECT_NAME = "Enter correct name";
     private final static String INCORRECT_PASS = "Enter correct password";
     private final static String INCORRECT_EMAIL = "Enter correct email";
@@ -82,6 +84,12 @@ public class UserServiceImpl implements UserService {
         String pass = registrationInfo.getPass();
         String email = registrationInfo.getEmail();
         boolean flag = false;
+        if (checkEmail(email)) {
+            return false;
+        }
+        if (checkStringLine(pass)) {
+            return false;
+        }
         try {
             Optional<User> userFromDAO = userDao.readUser(email);
             if (userFromDAO.isPresent() && BCrypt.checkpw(pass, userFromDAO.get().getPass())) {

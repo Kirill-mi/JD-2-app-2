@@ -10,12 +10,11 @@ import java.io.IOException;
 
 
 public class UnknownCommand implements Command {
-    private final String pathToIndexJsp = "/index.jsp";
+    private final static String PATH_TO_INDEX_JSP = "/index.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServletException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher(pathToIndexJsp);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_INDEX_JSP);
         requestDispatcher.forward(request, response);
     }
-
 }

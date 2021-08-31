@@ -4,13 +4,15 @@ import by.kirill.pympproject.bean.News;
 import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.DaoProvider;
 import by.kirill.pympproject.dao.NewsDAO;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class NewsServiceImpl implements NewsService {
-    private static final Logger LOGGER = Logger.getLogger(NewsServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(NewsServiceImpl.class);
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
     private final NewsDAO newsDao = daoProvider.getNewsDao();
 

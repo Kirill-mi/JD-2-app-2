@@ -20,21 +20,26 @@ public class UpdateUserCommand implements Command {
     private final UserService userService = provider.getUserService();
     private final static String GO_TO_ACCOUNT = "Controller?command=user_s_account";
     private final static String GO_TO_EDIT_PROFILE = "Controller?command=profile_edit";
+    private final static String PARAMETER_EMAIL = "email";
+    private final static String PARAMETER_NAME = "name";
+    private final static String PARAMETER_PASS = "pass";
+    private final static String PARAMETER_NEW_PASS = "pass_new";
+    private final static String ATTRIBUTE_USER = "user";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String name = request.getParameter("name");
-        String pass = request.getParameter("pass");
-        String controlPass = request.getParameter("pass_new");
-        String email = request.getParameter("email");
+        String name = request.getParameter(PARAMETER_NAME);
+        String pass = request.getParameter(PARAMETER_PASS);
+        String controlPass = request.getParameter(PARAMETER_NEW_PASS);
+        String email = request.getParameter(PARAMETER_EMAIL);
         RegistrationInfo registrationInfo = new RegistrationInfo(name, email, pass, controlPass);
         try {
             boolean registrationStatus = userService.updateUser(registrationInfo);
             if (registrationStatus) {
                 Optional<User> optionalUser = userService.readUser(email);
                 HttpSession session = request.getSession(true);
-                session.removeAttribute("user");
-                optionalUser.ifPresent(user -> session.setAttribute("user", user));
+                session.removeAttribute(ATTRIBUTE_USER);
+                optionalUser.ifPresent(user -> session.setAttribute(ATTRIBUTE_USER, user));
                 response.sendRedirect(GO_TO_ACCOUNT);
             } else {
                 response.sendRedirect(GO_TO_EDIT_PROFILE);

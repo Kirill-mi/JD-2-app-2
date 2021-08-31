@@ -13,7 +13,6 @@ public class GoToPageAuthorizationCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH);
         requestDispatcher.forward(request, response);
     }

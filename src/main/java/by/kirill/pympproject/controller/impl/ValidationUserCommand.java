@@ -20,29 +20,38 @@ public class ValidationUserCommand implements Command {
     private final UserService userService = provider.getUserService();
     private final static String GO_TO_AUTHORIZATION = "Controller?command=go_to_authorization";
     private final static String GO_TO_NEWS = "Controller?command=go_to_news";
+    private final static String ATTRIBUTE_PATH = "path";
+    private final static String CHANGE_LOCAL = "change_local";
+    private final static String PARAMETER_EMAIL = "email";
+    private final static String PARAMETER_PASS = "pass";
+    private final static String ATTRIBUTE_USER = "user";
+    private final static String ATTRIBUTE_MESSAGE = "message";
+    private final static String USER_IS_INCORRECT_MESSAGE = "User is incorrect";
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String pass = request.getParameter("pass");
+        String email = request.getParameter(PARAMETER_EMAIL);
+        String pass = request.getParameter(PARAMETER_PASS);
         RegistrationInfo registrationInfo = new RegistrationInfo(email, pass);
-
+        HttpSession session = request.getSession(true);
+        session.setAttribute(ATTRIBUTE_PATH, GO_TO_AUTHORIZATION);
+        session.removeAttribute(CHANGE_LOCAL);
+        session.setAttribute(CHANGE_LOCAL, "false");
         boolean flag;
         try {
             flag = userService.validateUser(registrationInfo);
-            HttpSession session = request.getSession(true);
             if (flag) {
                 Optional<User> optionalUser = userService.readUser(email);
-                optionalUser.ifPresent(user -> session.setAttribute("user", user));
+                optionalUser.ifPresent(user -> session.setAttribute(ATTRIBUTE_USER, user));
                 response.sendRedirect(GO_TO_NEWS);
             } else {
-                session.setAttribute("message", "User is incorrect");
+                session.setAttribute(ATTRIBUTE_MESSAGE, USER_IS_INCORRECT_MESSAGE);
                 response.sendRedirect(GO_TO_AUTHORIZATION);
             }
         } catch (ServiceException e) {
             throw new ServletException(e);
         }
-
     }
 }
