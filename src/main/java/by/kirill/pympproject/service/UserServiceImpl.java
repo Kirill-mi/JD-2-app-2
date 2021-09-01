@@ -7,6 +7,7 @@ import by.kirill.pympproject.dao.DaoProvider;
 import by.kirill.pympproject.dao.UserDAO;
 
 
+import by.kirill.pympproject.dao.UserDAOImpl;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
@@ -16,14 +17,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
-    private final static DaoProvider daoProvider = DaoProvider.getInstance();
-    private final UserDAO userDao = daoProvider.getUserDao();
+
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
     private final static String INCORRECT_NAME = "Enter correct name";
     private final static String INCORRECT_PASS = "Enter correct password";
     private final static String INCORRECT_EMAIL = "Enter correct email";
     private final static String USER_ADDED = "User added";
     private final static String USER_EXISTS = "User exists";
+    private UserDAO userDao;
 
     @Override
     public String createUser(RegistrationInfo registrationInfo) throws ServiceException {
@@ -32,16 +33,16 @@ public class UserServiceImpl implements UserService {
         String controlPass = registrationInfo.getControlPass();
         String email = registrationInfo.getEmail();
 
-        if (checkStringLine(name)) {
+        if (!checkStringLine(name)) {
             return INCORRECT_NAME;
         }
-        if (checkEmail(email)) {
+        if (!checkEmail(email)) {
             return INCORRECT_EMAIL;
         }
-        if (checkStringLine(pass)) {
+        if (!checkStringLine(pass)) {
             return INCORRECT_PASS;
         }
-        if (checkPassword(pass, controlPass)) {
+        if (!checkPassword(pass, controlPass)) {
             return INCORRECT_PASS;
         }
         try {
@@ -141,6 +142,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public void setUserDao(UserDAO userDao) {
+        this.userDao = userDao;
+    }
+
     private boolean checkStringLine(String name) {
         return name == null || name.isEmpty() || name.length() > 50;
     }
@@ -155,4 +160,6 @@ public class UserServiceImpl implements UserService {
         boolean matches = matcher.matches();
         return matches || email.length() > 100;
     }
+
+
 }
