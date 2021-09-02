@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class NewsServiceImpl implements NewsService {
-    private static final Logger LOGGER = LogManager.getLogger(NewsServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(NewsServiceImpl.class);
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
     private final NewsDAO newsDao = daoProvider.getNewsDao();
 
@@ -29,7 +29,7 @@ public class NewsServiceImpl implements NewsService {
             newsDao.create(news);
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return false;
@@ -42,7 +42,7 @@ public class NewsServiceImpl implements NewsService {
             flag = newsDao.deleteNews(title);
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -55,7 +55,7 @@ public class NewsServiceImpl implements NewsService {
             flag = newsDao.update(news);
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -68,7 +68,7 @@ public class NewsServiceImpl implements NewsService {
             news = newsDao.read(title);
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return news;
@@ -82,7 +82,7 @@ public class NewsServiceImpl implements NewsService {
             newsArrayList = new ArrayList<>(newsDao.readLastNews(date.minusDays(20)));
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return newsArrayList;
