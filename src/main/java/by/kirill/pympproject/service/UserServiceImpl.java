@@ -3,7 +3,6 @@ package by.kirill.pympproject.service;
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
 import by.kirill.pympproject.dao.DAOException;
-import by.kirill.pympproject.dao.DaoProvider;
 import by.kirill.pympproject.dao.UserDAO;
 
 
@@ -16,14 +15,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
-    private final static DaoProvider daoProvider = DaoProvider.getInstance();
-    private final UserDAO userDao = daoProvider.getUserDao();
-    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
-    private final static String INCORRECT_NAME = "Enter correct name";
-    private final static String INCORRECT_PASS = "Enter correct password";
-    private final static String INCORRECT_EMAIL = "Enter correct email";
+
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
+    private final static String INVALID_NAME = "Enter correct name";
+    private final static String INVALID_PASS = "Enter correct password";
+    private final static String INVALID_EMAIL = "Enter correct email";
     private final static String USER_ADDED = "User added";
     private final static String USER_EXISTS = "User exists";
+    private UserDAO userDao;
 
     @Override
     public String createUser(RegistrationInfo registrationInfo) throws ServiceException {
@@ -32,17 +31,17 @@ public class UserServiceImpl implements UserService {
         String controlPass = registrationInfo.getControlPass();
         String email = registrationInfo.getEmail();
 
-        if (checkStringLine(name)) {
-            return INCORRECT_NAME;
+        if (isStringLineInvalid(name)) {
+            return INVALID_NAME;
         }
-        if (checkEmail(email)) {
-            return INCORRECT_EMAIL;
+        if (isEmailInvalid(email)) {
+            return INVALID_EMAIL;
         }
-        if (checkStringLine(pass)) {
-            return INCORRECT_PASS;
+        if (isStringLineInvalid(pass)) {
+            return INVALID_PASS;
         }
-        if (checkPassword(pass, controlPass)) {
-            return INCORRECT_PASS;
+        if (isPasswordInvalid(pass, controlPass)) {
+            return INVALID_PASS;
         }
         try {
             if (!userDao.readUser(email).isPresent()) {
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return USER_ADDED;
@@ -73,7 +72,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -84,10 +83,10 @@ public class UserServiceImpl implements UserService {
         String pass = registrationInfo.getPass();
         String email = registrationInfo.getEmail();
         boolean flag = false;
-        if (checkEmail(email)) {
+        if (isEmailInvalid(email)) {
             return false;
         }
-        if (checkStringLine(pass)) {
+        if (isStringLineInvalid(pass)) {
             return false;
         }
         try {
@@ -97,7 +96,7 @@ public class UserServiceImpl implements UserService {
             }
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -109,13 +108,13 @@ public class UserServiceImpl implements UserService {
         String pass = registrationInfo.getPass();
         String controlPass = registrationInfo.getControlPass();
         String email = registrationInfo.getEmail();
-        if (checkStringLine(name)) {
+        if (isStringLineInvalid(name)) {
             return false;
         }
-        if (checkEmail(email)) {
+        if (isEmailInvalid(email)) {
             return false;
         }
-        if (checkStringLine(pass)) {
+        if (isStringLineInvalid(pass)) {
             return false;
         }
         String hashedPass = BCrypt.hashpw(controlPass, BCrypt.gensalt());
@@ -124,7 +123,7 @@ public class UserServiceImpl implements UserService {
             userDao.update(user);
         } catch (DAOException e) {
             e.printStackTrace();
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return true;
@@ -135,24 +134,28 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.readUser(email);
         } catch (DAOException e) {
-            LOGGER.warn(e.getMessage());
+            logger.warn(e.getMessage());
             e.printStackTrace();
             throw new ServiceException(e);
         }
     }
 
-    private boolean checkStringLine(String name) {
+    public void setUserDao(UserDAO userDao) {
+        this.userDao = userDao;
+    }
+
+    private boolean isStringLineInvalid(String name) {
         return name == null || name.isEmpty() || name.length() > 50;
     }
 
-    private boolean checkPassword(String pass, String controlPass) {
-        return controlPass == null || !controlPass.equals(pass);
+    private boolean isPasswordInvalid(String pass, String controlPass) {
+        return controlPass == null || !(controlPass.equals(pass));
     }
 
-    private boolean checkEmail(String email) {
+    private boolean isEmailInvalid(String email) {
         Pattern pattern = Pattern.compile("\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*\\.\\w{2,4}");
         Matcher matcher = pattern.matcher(email);
         boolean matches = matcher.matches();
-        return matches || email.length() > 100;
+        return !matches && email.length() <= 100;
     }
 }
