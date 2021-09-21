@@ -21,6 +21,10 @@ public class CommandProvider {
         commands.put(CommandName.GO_TO_EDIT_PROFILE, new GoToEditProfilePage());
         commands.put(CommandName.GO_TO_EDIT_NEWS, new GoToEditNewsPage());
         commands.put(CommandName.CREATE_NEWS, new CreateNewsCommand());
+        commands.put(CommandName.GO_TO_WELCOME, new GoToWelcomePage());
+        commands.put(CommandName.READ_NEWS, new GoToReadNewsPage());
+        commands.put(CommandName.GO_TO_UPDATE_NEWS, new GoToUpdateNewsPage());
+        commands.put(CommandName.UPDATE_NEWS, new UpdateNewsCommand());
     }
 
     public Command findCommand(String name) {

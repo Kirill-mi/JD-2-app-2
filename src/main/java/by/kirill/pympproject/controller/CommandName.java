@@ -13,5 +13,9 @@ public enum CommandName {
     PROFILE_EDIT,
     GO_TO_EDIT_PROFILE,
     GO_TO_EDIT_NEWS,
-    CREATE_NEWS
+    CREATE_NEWS,
+    GO_TO_WELCOME,
+    READ_NEWS,
+    GO_TO_UPDATE_NEWS,
+    UPDATE_NEWS
 }

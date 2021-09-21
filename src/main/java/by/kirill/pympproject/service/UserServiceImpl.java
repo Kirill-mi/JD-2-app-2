@@ -4,10 +4,6 @@ import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
 import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.UserDAO;
-
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;
@@ -16,7 +12,6 @@ import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
 
-    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
     private final static String INVALID_NAME = "Enter correct name";
     private final static String INVALID_PASS = "Enter correct password";
     private final static String INVALID_EMAIL = "Enter correct email";
@@ -52,8 +47,6 @@ public class UserServiceImpl implements UserService {
                 return USER_EXISTS;
             }
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return USER_ADDED;
@@ -71,8 +64,6 @@ public class UserServiceImpl implements UserService {
                 flag = true;
             }
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -95,8 +86,6 @@ public class UserServiceImpl implements UserService {
                 flag = true;
             }
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -122,8 +111,6 @@ public class UserServiceImpl implements UserService {
         try {
             userDao.update(user);
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return true;
@@ -134,8 +121,6 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.readUser(email);
         } catch (DAOException e) {
-            logger.warn(e.getMessage());
-            e.printStackTrace();
             throw new ServiceException(e);
         }
     }

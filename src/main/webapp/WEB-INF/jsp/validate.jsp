@@ -36,7 +36,7 @@
             <label>${email}:<br/>
                 <input type="text" placeholder="Enter your email" name="email"></label><br/>
             <label>${password}:<br/>
-                <input type="password" name="pass"></label> <br/>
+                <input type="password" placeholder="Enter your password" name="pass"></label> <br/>
             <input type="hidden" name="command" value="validation"><br/>
             <input type="submit" value=${submit}>
         </form>

@@ -2,6 +2,8 @@ package by.kirill.pympproject.dao;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
+import by.kirill.pympproject.dao.connection.ConnectionPool;
+import by.kirill.pympproject.dao.connection.ConnectionPoolException;
 
 import java.sql.*;
 import java.util.Optional;
@@ -20,7 +22,7 @@ public class UserDAOImpl implements UserDAO {
         String role = user.getRole();
         String email = user.getEmail();
         String status = user.getStatus();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_USER)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, password);
@@ -28,8 +30,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(4, email);
             preparedStatement.setString(5, status);
             rows = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
         return rows != 0;
@@ -42,14 +43,13 @@ public class UserDAOImpl implements UserDAO {
         String name = user.getName();
         String password = user.getPass();
         String email = user.getEmail();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, email);
             rows = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
         return rows != 0;
@@ -59,12 +59,11 @@ public class UserDAOImpl implements UserDAO {
     public boolean deleteUser(RegistrationInfo registrationInfo) throws DAOException {
         String email = registrationInfo.getEmail();
         int rows;
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER)) {
             preparedStatement.setString(1, email);
             rows = preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
         return rows != 0;
@@ -72,7 +71,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Optional<User> readUser(String email) throws DAOException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
+        try (Connection connection = ConnectionPool.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_USER)) {
             preparedStatement.setString(1, email);
             try (ResultSet result = preparedStatement.executeQuery()) {
@@ -83,11 +82,9 @@ public class UserDAOImpl implements UserDAO {
                     return Optional.of(new User(name, password, emailFromBase));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
                 throw new DAOException(e);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException | ConnectionPoolException e) {
             throw new DAOException(e);
         }
         return Optional.empty();
