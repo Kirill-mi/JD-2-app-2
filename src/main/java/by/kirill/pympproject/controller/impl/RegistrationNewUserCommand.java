@@ -5,6 +5,8 @@ import by.kirill.pympproject.controller.Command;
 import by.kirill.pympproject.service.ServiceException;
 import by.kirill.pympproject.service.ServiceProvider;
 import by.kirill.pympproject.service.UserService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ public class RegistrationNewUserCommand implements Command {
     private final static String PARAMETER_PASS = "pass";
     private final static String PARAMETER_NEW_PASS = "pass_new";
     private final static String REGISTRATION_STATUS = "registration_status";
+    private static final Logger logger = LogManager.getLogger(RegistrationNewUserCommand.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -43,6 +46,7 @@ public class RegistrationNewUserCommand implements Command {
                 response.sendRedirect(GO_TO_REGISTRATION);
             }
         } catch (ServiceException e) {
+            logger.warn(e.getMessage());
             response.sendRedirect(GO_TO_REGISTRATION);
         }
     }

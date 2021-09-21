@@ -1,4 +1,4 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.dao.connection;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,13 +8,12 @@ import java.util.Properties;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 
-public class ConnectionPool {
-    private static ConnectionPool instance = null;
+public class ConnectionPoolOld {
+    private static ConnectionPoolOld instance = null;
     private DataSource ds;
-    private static final String PATH = "C:\\Users\\Кирилл\\IdeaProjects\\pumpProject\\src\\main" +
-            "\\resources\\by\\kirill\\pumpproject\\dao\\db.properties";
+    private static final String PATH = "C:\\Users\\Кирилл\\IdeaProjects\\pumpProject\\src\\main\\resources\\by\\kirill\\pumpproject\\dao\\connection\\db_ru_RU.properties";
 
-    private ConnectionPool() {
+    private ConnectionPoolOld() {
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(PATH));
@@ -32,9 +31,9 @@ public class ConnectionPool {
         ds.setMaxActive(Integer.parseInt(properties.getProperty("db.maxActive")));
     }
 
-    public static ConnectionPool getInstance() {
+    public static ConnectionPoolOld getInstance() {
         if (instance == null) {
-            instance = new ConnectionPool();
+            instance = new ConnectionPoolOld();
         }
         return instance;
     }

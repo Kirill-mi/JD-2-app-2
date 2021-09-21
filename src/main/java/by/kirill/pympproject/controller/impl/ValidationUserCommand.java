@@ -6,6 +6,8 @@ import by.kirill.pympproject.controller.Command;
 import by.kirill.pympproject.service.ServiceException;
 import by.kirill.pympproject.service.ServiceProvider;
 import by.kirill.pympproject.service.UserService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +29,7 @@ public class ValidationUserCommand implements Command {
     private final static String ATTRIBUTE_USER = "user";
     private final static String ATTRIBUTE_MESSAGE = "message";
     private final static String USER_IS_INCORRECT_MESSAGE = "User is incorrect";
-
+    private static final Logger logger = LogManager.getLogger(ValidationUserCommand.class);
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +53,7 @@ public class ValidationUserCommand implements Command {
                 response.sendRedirect(GO_TO_AUTHORIZATION);
             }
         } catch (ServiceException e) {
-            throw new ServletException(e);
+            logger.warn(e.getMessage());
         }
     }
 }

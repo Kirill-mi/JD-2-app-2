@@ -4,15 +4,12 @@ import by.kirill.pympproject.bean.News;
 import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.DaoProvider;
 import by.kirill.pympproject.dao.NewsDAO;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class NewsServiceImpl implements NewsService {
-    private static final Logger logger = LogManager.getLogger(NewsServiceImpl.class);
+
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
     private final NewsDAO newsDao = daoProvider.getNewsDao();
 
@@ -28,8 +25,6 @@ public class NewsServiceImpl implements NewsService {
         try {
             newsDao.create(news);
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return false;
@@ -41,21 +36,17 @@ public class NewsServiceImpl implements NewsService {
         try {
             flag = newsDao.deleteNews(title);
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
     }
 
     @Override
-    public boolean updateNews(News news) throws ServiceException {
+    public boolean updateNews(String title, String text) throws ServiceException {
         boolean flag;
         try {
-            flag = newsDao.update(news);
+            flag = newsDao.update(title, text);
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return flag;
@@ -67,24 +58,25 @@ public class NewsServiceImpl implements NewsService {
         try {
             news = newsDao.read(title);
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return news;
     }
 
     @Override
-    public ArrayList<News> getLastNews() throws ServiceException {
+    public ArrayList<News> getLastNews(int offset,int noOfRecords) throws ServiceException {
         ArrayList<News> newsArrayList;
         LocalDate date = LocalDate.now();
         try {
-            newsArrayList = new ArrayList<>(newsDao.readLastNews(date.minusDays(20)));
+            newsArrayList = new ArrayList<>(newsDao.readLastNews( offset, noOfRecords));
         } catch (DAOException e) {
-            e.printStackTrace();
-            logger.warn(e.getMessage());
             throw new ServiceException(e);
         }
         return newsArrayList;
+    }
+
+    @Override
+    public int getNoOfRecords() {
+        return newsDao.getNoOfRecords();
     }
 }

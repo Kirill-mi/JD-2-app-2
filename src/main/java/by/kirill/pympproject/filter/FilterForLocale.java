@@ -1,4 +1,4 @@
-package by.kirill.pympproject.controller;
+package by.kirill.pympproject.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -9,7 +9,7 @@ import java.io.IOException;
 @WebFilter("/Controller")
 public class FilterForLocale implements Filter {
     private final static String ATTRIBUTE_PATH = "path";
-    private final static String PATH = "Controller?command=go_to_authorization";
+    private final static String PATH = "Controller?command=go_to_welcome";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

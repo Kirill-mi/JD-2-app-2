@@ -9,9 +9,11 @@ public interface NewsService {
 
     boolean deleteNews(String title) throws ServiceException;
 
-    boolean updateNews(News news) throws ServiceException;
+    boolean updateNews(String title, String tex) throws ServiceException;
 
     News read(String title) throws ServiceException;
 
-    ArrayList<News> getLastNews() throws ServiceException;
+    ArrayList<News> getLastNews(int offset,int noOfRecords) throws ServiceException;
+
+    int getNoOfRecords();
 }

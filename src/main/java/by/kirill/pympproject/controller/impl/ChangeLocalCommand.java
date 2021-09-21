@@ -11,12 +11,13 @@ import java.io.IOException;
 
 
 public class ChangeLocalCommand implements Command {
+    private final static String SESSION_ATTRIBUTE_LOCAL = "local";
+    private final static String REQUEST_PARAMETER_LOCATION = "location";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        session.setAttribute("local", request.getParameter("location"));
+        session.setAttribute(SESSION_ATTRIBUTE_LOCAL, request.getParameter(REQUEST_PARAMETER_LOCATION));
         request.getRequestDispatcher((String) session.getAttribute("path")).forward(request, response);
-
     }
 }
