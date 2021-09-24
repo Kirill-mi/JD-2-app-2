@@ -7,7 +7,6 @@ public enum CommandName {
     LOCAL,
     REGISTRATION_NEW_USER,
     VALIDATION,
-    FORGOT_PASSWORD,
     GO_TO_NEWS,
     USER_S_ACCOUNT,
     PROFILE_EDIT,
@@ -17,5 +16,6 @@ public enum CommandName {
     GO_TO_WELCOME,
     READ_NEWS,
     GO_TO_UPDATE_NEWS,
-    UPDATE_NEWS
+    UPDATE_NEWS,
+    CREATE_COMMENT
 }

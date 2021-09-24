@@ -36,7 +36,7 @@
             <input type="hidden" name="command" value="go_to_edit_profile"><br/>
             <input type="submit" value=${profile_edit_button}>
         </form>
-        <c:if test="${userOnPage.role eq 'user'}">
+        <c:if test="${userOnPage.role eq 'admin'}">
             <form action="Controller" method="post">
                 <input type="hidden" name="command" value="go_to_edit_news"><br/>
                 <input type="submit" value=${news_edit_button}>

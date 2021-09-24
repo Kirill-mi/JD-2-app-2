@@ -1,4 +1,4 @@
-package by.kirill.pympproject.controller.impl;
+package by.kirill.pympproject.controller.impl.Commands;
 
 import by.kirill.pympproject.controller.Command;
 

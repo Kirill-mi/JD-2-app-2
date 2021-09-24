@@ -1,11 +1,12 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.dao.user;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
-import by.kirill.pympproject.dao.connection.ConnectionPool;
-import by.kirill.pympproject.dao.connection.ConnectionPoolException;
+import by.kirill.pympproject.dao.DAOException;
+import by.kirill.pympproject.dao.connection.ConnectionPoolOld;
 
 import java.sql.*;
+
 import java.util.Optional;
 
 public class UserDAOImpl implements UserDAO {
@@ -22,7 +23,7 @@ public class UserDAOImpl implements UserDAO {
         String role = user.getRole();
         String email = user.getEmail();
         String status = user.getStatus();
-        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+        try (Connection connection = ConnectionPoolOld.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_ADD_USER)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, password);
@@ -30,12 +31,11 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(4, email);
             preparedStatement.setString(5, status);
             rows = preparedStatement.executeUpdate();
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return rows != 0;
     }
-
 
     @Override
     public boolean update(User user) throws DAOException {
@@ -43,13 +43,13 @@ public class UserDAOImpl implements UserDAO {
         String name = user.getName();
         String password = user.getPass();
         String email = user.getEmail();
-        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+        try (Connection connection = ConnectionPoolOld.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE_USER)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, email);
             rows = preparedStatement.executeUpdate();
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return rows != 0;
@@ -59,11 +59,11 @@ public class UserDAOImpl implements UserDAO {
     public boolean deleteUser(RegistrationInfo registrationInfo) throws DAOException {
         String email = registrationInfo.getEmail();
         int rows;
-        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+        try (Connection connection = ConnectionPoolOld.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE_USER)) {
             preparedStatement.setString(1, email);
             rows = preparedStatement.executeUpdate();
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return rows != 0;
@@ -71,7 +71,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Optional<User> readUser(String email) throws DAOException {
-        try (Connection connection = ConnectionPool.getInstance().takeConnection();
+        try (Connection connection = ConnectionPoolOld.getInstance().takeConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_USER)) {
             preparedStatement.setString(1, email);
             try (ResultSet result = preparedStatement.executeQuery()) {
@@ -79,12 +79,13 @@ public class UserDAOImpl implements UserDAO {
                     String name = result.getString(1);
                     String password = result.getString(2);
                     String emailFromBase = result.getString(4);
-                    return Optional.of(new User(name, password, emailFromBase));
+                    String role = result.getString(3);
+                    return Optional.of(new User(name, password, emailFromBase, role));
                 }
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return Optional.empty();

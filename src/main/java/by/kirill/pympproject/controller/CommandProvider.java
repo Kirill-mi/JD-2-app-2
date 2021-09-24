@@ -1,9 +1,11 @@
 package by.kirill.pympproject.controller;
 
-import by.kirill.pympproject.controller.impl.*;
+import by.kirill.pympproject.controller.impl.Commands.*;
+import by.kirill.pympproject.controller.impl.gotocommands.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class CommandProvider {
     private final Map<CommandName, Command> commands = new HashMap<>();
@@ -14,7 +16,6 @@ public class CommandProvider {
         commands.put(CommandName.LOCAL, new ChangeLocalCommand());
         commands.put(CommandName.REGISTRATION_NEW_USER, new RegistrationNewUserCommand());
         commands.put(CommandName.VALIDATION, new ValidationUserCommand());
-        commands.put(CommandName.FORGOT_PASSWORD, new ForgotPassword());
         commands.put(CommandName.GO_TO_NEWS, new GoToNewsPage());
         commands.put(CommandName.USER_S_ACCOUNT, new GoToAccountPage());
         commands.put(CommandName.PROFILE_EDIT, new UpdateUserCommand());
@@ -25,6 +26,9 @@ public class CommandProvider {
         commands.put(CommandName.READ_NEWS, new GoToReadNewsPage());
         commands.put(CommandName.GO_TO_UPDATE_NEWS, new GoToUpdateNewsPage());
         commands.put(CommandName.UPDATE_NEWS, new UpdateNewsCommand());
+        commands.put(CommandName.CREATE_COMMENT, new CreateCommentCommand());
+
+
     }
 
     public Command findCommand(String name) {

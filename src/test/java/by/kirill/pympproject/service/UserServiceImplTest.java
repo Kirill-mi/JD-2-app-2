@@ -4,8 +4,10 @@ package by.kirill.pympproject.service;
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
 import by.kirill.pympproject.dao.DAOException;
-import by.kirill.pympproject.dao.UserDAO;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import by.kirill.pympproject.dao.user.UserDAO;
+
+
+import by.kirill.pympproject.service.user.UserServiceImpl;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,7 +37,6 @@ public class UserServiceImplTest {
         assertEquals("User exists", actual);
     }
 
-    @Ignore
     @Test
     public void testCreateUserSuccessfully() throws ServiceException, DAOException {
         UserDAO userDAO = EasyMock.createMock(UserDAO.class);
@@ -51,7 +52,7 @@ public class UserServiceImplTest {
     @ParameterizedTest
     @MethodSource("createUserArgumentProvider")
     public void testCreateUser(String message, RegistrationInfo registrationInfo)
-            throws ServiceException, DAOException {
+            throws ServiceException {
         assertEquals(message, userService.createUser(registrationInfo));
     }
 

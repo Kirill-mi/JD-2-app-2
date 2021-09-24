@@ -10,8 +10,8 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 
 public class ConnectionPoolOld {
     private static ConnectionPoolOld instance = null;
-    private DataSource ds;
-    private static final String PATH = "C:\\Users\\Кирилл\\IdeaProjects\\pumpProject\\src\\main\\resources\\by\\kirill\\pumpproject\\dao\\connection\\db_ru_RU.properties";
+    private final DataSource ds;
+    private static final String PATH = "src/main/resources/by/kirill/pumpproject/dao/connection/db_ru_RU.properties";
 
     private ConnectionPoolOld() {
         Properties properties = new Properties();
@@ -38,7 +38,7 @@ public class ConnectionPoolOld {
         return instance;
     }
 
-    public Connection getConnection() throws SQLException {
+    public Connection takeConnection() throws  SQLException {
         return ds.getConnection();
     }
 }

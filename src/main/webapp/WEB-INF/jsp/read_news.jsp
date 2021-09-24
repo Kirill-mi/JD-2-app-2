@@ -11,6 +11,7 @@
     <fmt:setBundle basename="by.kirill.pumpproject.controller.local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.news" var="news"/>
     <fmt:message bundle="${loc}" key="local.text.news" var="news_text"/>
+    <fmt:message bundle="${loc}" key="local.text.write" var="write_text"/>
     <fmt:message bundle="${loc}" key="local.button.account" var="account_button"/>
     <fmt:message bundle="${loc}" key="local.button.read_news" var="read_news_button"/>
     <fmt:message bundle="${loc}" key="local.button.update_news" var="update_news_button"/>
@@ -25,7 +26,7 @@
     ${sessionScope.newsAttribute.text}
     <div class="button-section">
         <c:set var="userOnPage" value="${sessionScope.user}"/>
-        <c:if test="${userOnPage.role eq 'user'}">
+        <c:if test="${userOnPage.role eq 'admin'}">
             <form action="Controller" method="post">
                 <input type="hidden" name="command" value="go_to_update_news"><br/>
                 <input type="submit" value=${update_news_button}>
@@ -37,9 +38,21 @@
             </form>
         </c:if>
         <form action="Controller" method="post">
-            <input type="hidden" name="command" value="go_to_news"><br/>
+            <div class="inner-wrap">
+                <label>${userOnPage.name}<br/>
+                    <textarea name="comment" maxlength="200" cols="50" rows="3" required></textarea></label>
+            </div>
+            <input type="hidden" name="command" value="create_comment"><br/>
             <input type="submit" value=${comment_news_button}>
         </form>
+        <br/>
+        <br/>
+        <c:forEach var="comments" items="${sessionScope.comments}">
+            <div class="inner-wrap">
+                <label> ${comments.author}${write_text}: <br/>
+                    <textarea name="comment" maxlength="200" cols="50" rows="3" readonly>${comments.content}</textarea></label>
+            </div>
+        </c:forEach>
     </div>
 </body>
 </html>

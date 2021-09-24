@@ -1,6 +1,5 @@
 package by.kirill.pympproject.dao.connection;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class DBResourceManager {
@@ -9,7 +8,7 @@ public class DBResourceManager {
 
     private final static DBResourceManager instance = new DBResourceManager();
 
-    private ResourceBundle resourceBundle = ResourceBundle.getBundle(DB_RESOURCE);
+    private final ResourceBundle resourceBundle = ResourceBundle.getBundle(DB_RESOURCE);
 
     public static DBResourceManager getInstance() {
         return instance;

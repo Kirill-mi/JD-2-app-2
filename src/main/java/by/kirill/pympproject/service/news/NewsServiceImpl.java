@@ -1,9 +1,10 @@
-package by.kirill.pympproject.service;
+package by.kirill.pympproject.service.news;
 
 import by.kirill.pympproject.bean.News;
 import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.DaoProvider;
-import by.kirill.pympproject.dao.NewsDAO;
+import by.kirill.pympproject.dao.news.NewsDAO;
+import by.kirill.pympproject.service.ServiceException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class NewsServiceImpl implements NewsService {
 
     private final static DaoProvider daoProvider = DaoProvider.getInstance();
-    private final NewsDAO newsDao = daoProvider.getNewsDao();
+    private final NewsDAO newsDao = daoProvider.getNewsDAO();
 
     @Override
     public boolean createNews(String title, String text, String author) throws ServiceException {
@@ -64,11 +65,11 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public ArrayList<News> getLastNews(int offset,int noOfRecords) throws ServiceException {
+    public ArrayList<News> getLastNews(int offset, int noOfRecords) throws ServiceException {
         ArrayList<News> newsArrayList;
         LocalDate date = LocalDate.now();
         try {
-            newsArrayList = new ArrayList<>(newsDao.readLastNews( offset, noOfRecords));
+            newsArrayList = new ArrayList<>(newsDao.readLastNews(offset, noOfRecords));
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
@@ -79,4 +80,5 @@ public class NewsServiceImpl implements NewsService {
     public int getNoOfRecords() {
         return newsDao.getNoOfRecords();
     }
+
 }

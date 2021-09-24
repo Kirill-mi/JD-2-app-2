@@ -16,7 +16,8 @@ public class FilterForLocale implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) servletRequest).getSession(true);
         if (session.getAttribute(ATTRIBUTE_PATH) == null) {
             session.setAttribute(ATTRIBUTE_PATH, PATH);

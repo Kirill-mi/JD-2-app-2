@@ -1,4 +1,4 @@
-package by.kirill.pympproject.controller.impl;
+package by.kirill.pympproject.controller.impl.Commands;
 
 import by.kirill.pympproject.controller.Command;
 
@@ -13,7 +13,8 @@ public class UnknownCommand implements Command {
     private final static String PATH_TO_INDEX_JSP = "/index.jsp";
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServletException {
+    public void execute(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(PATH_TO_INDEX_JSP);
         requestDispatcher.forward(request, response);
     }

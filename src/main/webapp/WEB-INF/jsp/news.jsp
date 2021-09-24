@@ -11,6 +11,8 @@
     <fmt:setBundle basename="by.kirill.pumpproject.controller.local" var="loc"/>
     <fmt:message bundle="${loc}" key="local.news" var="news"/>
     <fmt:message bundle="${loc}" key="local.text.news" var="news_text"/>
+    <fmt:message bundle="${loc}" key="local.text.next" var="next_text"/>
+    <fmt:message bundle="${loc}" key="local.text.previous" var="previous_text"/>
     <fmt:message bundle="${loc}" key="local.button.account" var="account_button"/>
     <fmt:message bundle="${loc}" key="local.button.read_news" var="read_news_button"/>
     <fmt:message bundle="${loc}" key="local.button.read" var="read_news"/>
@@ -38,7 +40,6 @@
                 <td>${news.brief}</td>
                 <td>${news.date}</td>
                 <td>${news.author}</td>
-                <td>
                 <td><a href="${pageContext.request.contextPath}
         Controller?command=read_news&number=${number}">${read_news}</a></td>
                 <c:set var="number" scope="request" value="${number+1}"/>
@@ -63,12 +64,12 @@
     </table>
     <c:if test="${requestScope.currentPage != 1}">
         <td><a href="${pageContext.request.contextPath}
-        Controller?command=go_to_news&page=${requestScope.currentPage - 1}">Previous</a></td>
+        Controller?command=go_to_news&page=${requestScope.currentPage - 1}">${previous_text}</a></td>
     </c:if>
 
     <c:if test="${requestScope.currentPage lt requestScope.noOfPages}">
         <td><a href="${pageContext.request.contextPath}
-        Controller?command=go_to_news&page=${requestScope.currentPage + 1}">Next</a></td>
+        Controller?command=go_to_news&page=${requestScope.currentPage + 1}">${next_text}</a></td>
     </c:if>
 </div>
 </body>
