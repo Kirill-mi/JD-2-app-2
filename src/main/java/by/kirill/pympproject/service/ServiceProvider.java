@@ -1,15 +1,22 @@
 package by.kirill.pympproject.service;
 
 import by.kirill.pympproject.dao.DaoProvider;
-import by.kirill.pympproject.dao.UserDAO;
+import by.kirill.pympproject.dao.user.UserDAO;
+import by.kirill.pympproject.service.comment.CommentService;
+import by.kirill.pympproject.service.comment.CommentServiceImpl;
+import by.kirill.pympproject.service.news.NewsService;
+import by.kirill.pympproject.service.news.NewsServiceImpl;
+import by.kirill.pympproject.service.user.UserService;
+import by.kirill.pympproject.service.user.UserServiceImpl;
 
 public final class ServiceProvider {
 
     private final static ServiceProvider instance = new ServiceProvider();
     private final UserServiceImpl userService = new UserServiceImpl();
     private final NewsService newsService = new NewsServiceImpl();
+    private final CommentService commentService = new CommentServiceImpl();
     private final DaoProvider daoProvider = DaoProvider.getInstance();
-    private final UserDAO userDao = daoProvider.getUserDao();
+    private final UserDAO userDao = daoProvider.getUserDAO();
 
     private ServiceProvider() {
     }
@@ -25,6 +32,10 @@ public final class ServiceProvider {
 
     public NewsService getNewsService() {
         return newsService;
+    }
+
+    public CommentService getCommentService() {
+        return commentService;
     }
 
 }

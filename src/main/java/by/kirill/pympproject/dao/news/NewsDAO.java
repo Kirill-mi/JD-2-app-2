@@ -1,7 +1,11 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.dao.news;
 
+import by.kirill.pympproject.bean.Comment;
 import by.kirill.pympproject.bean.News;
+import by.kirill.pympproject.dao.DAOException;
+import by.kirill.pympproject.service.ServiceException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,4 +21,5 @@ public interface NewsDAO {
     List<News> readLastNews(int offset, int noOfRecords) throws DAOException;
 
     int getNoOfRecords();
+
 }

@@ -1,11 +1,11 @@
-package by.kirill.pympproject.controller.impl;
+package by.kirill.pympproject.controller.impl.Commands;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
 import by.kirill.pympproject.controller.Command;
 import by.kirill.pympproject.service.ServiceException;
 import by.kirill.pympproject.service.ServiceProvider;
-import by.kirill.pympproject.service.UserService;
+import by.kirill.pympproject.service.user.UserService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

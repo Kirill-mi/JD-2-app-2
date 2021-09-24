@@ -1,8 +1,10 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.dao.news;
 
 import by.kirill.pympproject.bean.News;
+import by.kirill.pympproject.dao.DAOException;
 import by.kirill.pympproject.dao.connection.ConnectionPool;
 import by.kirill.pympproject.dao.connection.ConnectionPoolException;
+
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -10,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsDAOImpl implements NewsDAO {
-    private final static String SQL_READ_LAST_NEWS = "SELECT SQL_CALC_FOUND_ROWS * from news limit ?,?";
-    private final static String SQL_READ_NEWS = "SELECT * FROM news WHERE title=?";
+    private final static String SQL_READ_LAST_NEWS = "SELECT SQL_CALC_FOUND_ROWS * FROM news limit ?,?";
+    private final static String SQL_READ_NEWS = "SELECT * FROM news WHERE news_title=?";
     private final static String SQL_ADD_NEWS = "INSERT INTO news ( title ,brief,date,text,author) Values (?,?,?,?,?)";
     private final static String SQL_UPDATE_NEWS = "UPDATE  news set text=?,brief=?,date=? WHERE title=?";
     private final static String SQL_DELETE_NEWS = "DELETE * FROM news WHERE title=?";
@@ -77,12 +79,14 @@ public class NewsDAOImpl implements NewsDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL_READ_NEWS)) {
             preparedStatement.setString(1, title);
             try (ResultSet result = preparedStatement.executeQuery()) {
+                int newsId = result.getInt(1);
                 String titleFromBase = result.getString(2);
                 String brief = result.getString(3);
                 LocalDate date = result.getDate(4).toLocalDate();
                 String text = result.getString(5);
                 String author = result.getString(6);
                 news = new News.Builder()
+                        .setNewsId(newsId)
                         .setTitle(titleFromBase)
                         .setBrief(brief)
                         .setDate(date)
@@ -111,12 +115,14 @@ public class NewsDAOImpl implements NewsDAO {
                 if (result1.next())
                     this.noOfRecords = result1.getInt(1);
                 while (result.next()) {
+                    int newsId = result.getInt(1);
                     String title = result.getString(2);
                     String brief = result.getString(3);
                     LocalDate dateFromBase = result.getDate(4).toLocalDate();
                     String text = result.getString(5);
                     String author = result.getString(6);
                     newsArrayList.add(new News.Builder()
+                            .setNewsId(newsId)
                             .setTitle(title)
                             .setBrief(brief)
                             .setDate(dateFromBase)

@@ -1,9 +1,10 @@
-package by.kirill.pympproject.service;
+package by.kirill.pympproject.service.user;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
 import by.kirill.pympproject.dao.DAOException;
-import by.kirill.pympproject.dao.UserDAO;
+import by.kirill.pympproject.dao.user.UserDAO;
+import by.kirill.pympproject.service.ServiceException;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Optional;

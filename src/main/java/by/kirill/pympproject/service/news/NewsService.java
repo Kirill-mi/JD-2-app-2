@@ -1,6 +1,9 @@
-package by.kirill.pympproject.service;
+package by.kirill.pympproject.service.news;
 
+import by.kirill.pympproject.bean.Comment;
 import by.kirill.pympproject.bean.News;
+import by.kirill.pympproject.dao.DAOException;
+import by.kirill.pympproject.service.ServiceException;
 
 import java.util.ArrayList;
 
@@ -13,7 +16,8 @@ public interface NewsService {
 
     News read(String title) throws ServiceException;
 
-    ArrayList<News> getLastNews(int offset,int noOfRecords) throws ServiceException;
+    ArrayList<News> getLastNews(int offset, int noOfRecords) throws ServiceException;
 
     int getNoOfRecords();
+
 }

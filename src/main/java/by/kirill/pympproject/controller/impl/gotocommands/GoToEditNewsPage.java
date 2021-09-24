@@ -1,4 +1,4 @@
-package by.kirill.pympproject.controller.impl;
+package by.kirill.pympproject.controller.impl.gotocommands;
 
 import by.kirill.pympproject.controller.Command;
 
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class GoToEditProfilePage implements Command {
-    private final static String PATH = "/WEB-INF/jsp/edit_profile.jsp";
+public class GoToEditNewsPage implements Command {
+    private final static String PATH = "/WEB-INF/jsp/edit_news.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

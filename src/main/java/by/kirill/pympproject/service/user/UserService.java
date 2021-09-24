@@ -1,7 +1,8 @@
-package by.kirill.pympproject.service;
+package by.kirill.pympproject.service.user;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
+import by.kirill.pympproject.service.ServiceException;
 
 import java.util.Optional;
 

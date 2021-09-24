@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class News implements Serializable {
     private static final long serialVersionUID = 1L;
+    private int newsId;
     private String title;
     private String brief;
     private String text;
@@ -15,12 +16,22 @@ public class News implements Serializable {
     public News() {
     }
 
-    public News(String title, String brief, String text, LocalDate date,String author) {
+    public News(int newsId, String title, String brief, String text, LocalDate date, String author) {
+
+        this.newsId = newsId;
         this.title = title;
         this.brief = brief;
         this.text = text;
         this.date = date;
-        this.author=author;
+        this.author = author;
+    }
+
+    public int getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(int newsId) {
+        this.newsId = newsId;
     }
 
     public String getTitle() {
@@ -94,6 +105,7 @@ public class News implements Serializable {
         public Builder() {
         }
 
+        private int newsId;
         private String title;
         private String brief;
         private String text;
@@ -102,6 +114,11 @@ public class News implements Serializable {
 
         public Builder setTitle(String title) {
             this.title = title;
+            return this;
+        }
+
+        public Builder setNewsId(int newsId) {
+            this.newsId = newsId;
             return this;
         }
 
@@ -119,12 +136,14 @@ public class News implements Serializable {
             this.date = date;
             return this;
         }
+
         public Builder setAuthor(String author) {
             this.author = author;
             return this;
         }
+
         public News build() {
-            return new News(title, brief, text, date,author);
+            return new News(newsId, title, brief, text, date, author);
         }
     }
 }

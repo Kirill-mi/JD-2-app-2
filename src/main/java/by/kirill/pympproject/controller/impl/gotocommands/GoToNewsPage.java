@@ -1,8 +1,8 @@
-package by.kirill.pympproject.controller.impl;
+package by.kirill.pympproject.controller.impl.gotocommands;
 
 import by.kirill.pympproject.bean.News;
 import by.kirill.pympproject.controller.Command;
-import by.kirill.pympproject.service.NewsService;
+import by.kirill.pympproject.service.news.NewsService;
 import by.kirill.pympproject.service.ServiceException;
 import by.kirill.pympproject.service.ServiceProvider;
 

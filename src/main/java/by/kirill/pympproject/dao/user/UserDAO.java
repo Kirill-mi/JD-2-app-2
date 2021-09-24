@@ -1,7 +1,8 @@
-package by.kirill.pympproject.dao;
+package by.kirill.pympproject.dao.user;
 
 import by.kirill.pympproject.bean.RegistrationInfo;
 import by.kirill.pympproject.bean.User;
+import by.kirill.pympproject.dao.DAOException;
 
 import java.util.Optional;
 

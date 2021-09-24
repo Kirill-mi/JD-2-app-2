@@ -17,6 +17,7 @@
     background: #F8F8F8;
     border-radius: 6px;
     margin-bottom: 15px;
+    resize: none;
 }
 
 .form-style-10 h1 {
