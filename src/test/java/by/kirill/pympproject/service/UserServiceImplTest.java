@@ -69,17 +69,6 @@ public class UserServiceImplTest {
         );
     }
 
-    public void testDeleteUser() {
-    }
-
-    public void testValidateUser() {
-    }
-
-    public void testUpdateUser() {
-    }
-
-    public void testReadUser() {
-    }
 
     @Test
     public void testIsEmailInvalid() {
